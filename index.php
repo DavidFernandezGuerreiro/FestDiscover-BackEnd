@@ -54,6 +54,28 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             break;
     }
 
+}else if($_SERVER['REQUEST_METHOD'] == 'PUT'){
+    // http_response_code(200);
+    $path = $_GET['url'];
+    $task = $_GET['task'];
+
+    switch($path){
+        case 'festivals':
+            $result = festivals($task, connect());
+            print_r(json_encode($result));
+            break;
+        case 'users':
+            $result = users($task, connect());
+            print_r(json_encode($result));
+            break;
+        case 'profiles':
+            $result = profiles($task, connect());
+            print_r(json_encode($result));
+            break;
+        default:
+            break;
+    }
+
 }else{
     http_response_code(405); // método no permitido (AÑADIRLE EL PUT, DELETE, ETC
 }

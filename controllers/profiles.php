@@ -73,6 +73,39 @@ function profiles($task, $conn){
             $data['results'] = $result;
             $data['count'] = count($result);
             break;
+        case 'update_profile':
+            $profile = json_decode(file_get_contents("php://input"), true);
+
+            $name = isset($profile['name']) ? $profile['name'] : '';
+            $city = isset($profile['city']) ? $profile['city'] : '';
+            $province = isset($profile['province']) ? $profile['province'] : '';
+            $country = isset($profile['country']) ? $profile['country'] : '';
+            $numberPhone = isset($profile['numberPhone']) ? $profile['numberPhone'] : '';
+            $image = isset($profile['image']) ? $profile['image'] : '';
+
+            if(isset($profile['dateBirth'])){
+                $sql_update = "
+                UPDATE fest_profiles 
+                SET name = '". $name ."', city = '". $city ."', province = '". $province ."', country = '". $country ."', dateBirth = '". $profile['dateBirth'] ."',
+                 numberPhone = '". $numberPhone ."', image = '". $image ."'
+                WHERE id = ". $profile['id'];
+            } else {
+                $sql_update = "
+                UPDATE fest_profiles 
+                SET name = '". $name ."', city = '". $city ."', province = '". $province ."', country = '". $country ."', dateBirth = null,
+                 numberPhone = '". $numberPhone ."', image = '". $image ."'
+                WHERE id = ". $profile['id'];
+            }
+
+            $result = $conn->query($sql_update);
+            if($result == true){
+                $data['message'] = 'El perfil se ha actualizado correctamente.';
+            }else{
+                $data['message'] = 'Error. El perfil no se ha actualizado.';
+            }
+            $data['results'] = $result;
+            $data['count'] = count($result);
+            break;
         default:
             break;
     }

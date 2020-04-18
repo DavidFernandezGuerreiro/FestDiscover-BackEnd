@@ -93,6 +93,26 @@ function users($task, $conn){
                 $data['error'] = 'Error. Ya existe un perfil con ese nombre de usuario.';
             }
             break;
+        case 'user_login':
+            $credentials = json_decode(file_get_contents("php://input"), true);
+
+            $result_profile = profiles('get_profile_name', $conn);
+            $profile = $result_profile['results'];
+            $sql_user = 'SELECT * FROM fest_users WHERE id = '. $profile[0]['idUser'];
+
+            $result = $conn->query($sql_user);
+            foreach ($result as $results) {
+                if(password_verify($credentials['password'], $results['password'])){
+                    $data['message'] = 'La contraseña es válida.';
+                    $data['results'] = true;
+                    $data['count'] = 0;
+                }else{
+                    $data['message'] = 'La contraseña es incorrecta.';
+                    $data['results'] = false;
+                    $data['count'] = 0;
+                }
+            }
+            break;
         default:
             break;
     }

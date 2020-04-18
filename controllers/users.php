@@ -69,7 +69,20 @@ function users($task, $conn){
 
                 $result = $conn->query($sql_user);
                 if ($result == true) {
-                    $data['message'] = 'El usuario se ha creado correctamente.';
+                    $sql_id_user = "SELECT id FROM fest_users WHERE idProfile = ". $selectProfile['results'][0]['id'];
+                    $result = $conn->query($sql_id_user);
+                    $result_user = array();
+                    foreach ($result as $results) {
+                        $result_user[] = $results; // $results['id']
+                    }
+
+                    $sql_profile = "UPDATE fest_profiles SET idUser = ". intval($result_user[0]['id']) ." WHERE id = ". $selectProfile['results'][0]['id'];
+                    $result = $conn->query($sql_profile);
+                    if ($result == true) {
+                        $data['message'][0] = 'El idUser se ha añadido correctamente en el perfil.';
+                    }
+
+                    $data['message'][1] = 'El usuario se ha creado correctamente.';
                     print_r(json_encode($resultProfile));
                 } else {
                     $data['message'] = 'Error. El usuario no se ha creado.';

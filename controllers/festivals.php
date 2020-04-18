@@ -51,28 +51,26 @@ function festivals($task, $conn){
             $result_festivals = musicGenders('get_festival_by_gender', $conn);
             $id_festivals = $result_festivals['results'];
 
+            if($country != '' && $min_price != '' && $max_price != ''){
+                $resultArray = array();
+                foreach($id_festivals as $val) {
+                    $id_festival = intval($val['idFestival']);
+                    $sql_festival = "
+                    SELECT * FROM fest_festivals 
+                    WHERE id = " . $id_festival . " AND country = '" . $country . "' AND price >= " . $min_price . " AND price <= " . $max_price;
+                    $result = $conn->query($sql_festival);
 
-                if($country != '' && $min_price != '' && $max_price != ''){
-                    $resultArray = array();
-                    foreach($id_festivals as $val) {
-                        $id_festival = intval($val['idFestival']);
-                        $sql_festival = "
-                        SELECT * FROM fest_festivals 
-                        WHERE id = " . $id_festival . " AND country = '" . $country . "' AND price >= " . $min_price . " AND price <= " . $max_price;
-                        $result = $conn->query($sql_festival);
-
-                        foreach($result as $results){
-                            array_push($resultArray, $results);
-                        }
+                    foreach($result as $results){
+                        array_push($resultArray, $results);
                     }
-                    $data['results'] = $resultArray;
-                    $data['count'] = count($resultArray);
-                }else{
-                    $data['error'] = 'Error. Faltan parámentros. Debe introducir todos los campos.';
-                    $data['results'] = null;
-                    $data['count'] = 0;
                 }
-
+                $data['results'] = $resultArray;
+                $data['count'] = count($resultArray);
+            }else{
+                $data['error'] = 'Error. Faltan parámentros. Debe introducir todos los campos.';
+                $data['results'] = null;
+                $data['count'] = 0;
+            }
             break;
         default:
             break;

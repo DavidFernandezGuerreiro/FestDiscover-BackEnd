@@ -61,9 +61,10 @@ function users($task, $conn){
                 $resultProfile = profiles('create_profile', $conn);
                 $selectProfile = profiles('get_profile_name', $conn);
 
+                $pass_hash = password_hash($user['password'], PASSWORD_DEFAULT);
                 $sql_user = "
                     INSERT INTO fest_users (name, email, password, idProfile)
-                    VALUES ('" . $user['name'] . "', '" . $user['email'] . "', '" . $user['password'] . "', '" . $selectProfile['results'][0]['id'] . "')
+                    VALUES ('" . $user['name'] . "', '" . $user['email'] . "', '" . $pass_hash . "', '" . $selectProfile['results'][0]['id'] . "')
                 ";
 
                 $result = $conn->query($sql_user);

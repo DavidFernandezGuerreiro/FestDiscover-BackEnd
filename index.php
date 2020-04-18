@@ -8,6 +8,7 @@ print_r($result);*/
 require_once('controllers/festivals.php');
 require_once('controllers/users.php');
 require_once('controllers/profiles.php');
+require_once('controllers/musicGenders.php');
 require_once('include/DbConnect.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -26,6 +27,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             break;
         case 'profiles':
             $result = profiles($task, connect());
+            print_r(json_encode($result));
+            break;
+        case 'musicGenders':
+            $result = musicGenders($task, connect());
             print_r(json_encode($result));
             break;
         default:
@@ -50,6 +55,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $result = profiles($task, connect());
             print_r(json_encode($result));
             break;
+        case 'musicGenders':
+            $result = musicGenders($task, connect());
+            print_r(json_encode($result));
+            break;
         default:
             break;
     }
@@ -70,6 +79,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             break;
         case 'profiles':
             $result = profiles($task, connect());
+            print_r(json_encode($result));
+            break;
+        case 'musicGenders':
+            $result = musicGenders($task, connect());
             print_r(json_encode($result));
             break;
         default:

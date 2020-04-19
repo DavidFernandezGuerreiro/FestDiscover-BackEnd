@@ -61,6 +61,27 @@ function musicGenders($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        case 'get_gender_by_festival':
+            $id_festival = $_GET['id_festival'];
+            $sql_festival = "
+                SELECT gender.name
+                FROM fest_music_gender gender
+                LEFT JOIN fest_festival_music_gender fest
+                ON gender.id = fest.idMusicGender
+                WHERE fest.idFestival = ". $id_festival;
+
+            $result = $conn->query($sql_festival);
+            $resultArray = array();
+            foreach($result as $results){
+                $resultArray[] = $results;
+            }
+            $genders = array(
+                'musicGenders' => $resultArray
+            );
+
+            $data['results'] = $genders;
+            $data['count'] = count($resultArray);
+            break;
         default:
             break;
     }

@@ -27,11 +27,12 @@ function festivals($task, $conn){
                 $id_festival = $_GET['id_festival'];
 
                 $sql_festival = 'SELECT * FROM fest_festivals WHERE id = ' . $id_festival;
+                $music_genders = musicGenders('get_gender_by_festival', $conn);
 
                 $result = $conn->query($sql_festival);
                 $resultArray = array();
                 foreach ($result as $results) {
-                    $resultArray[] = $results;
+                    $resultArray = array_merge($results, $music_genders['results']);
                 }
 
                 $data['results'] = $resultArray;

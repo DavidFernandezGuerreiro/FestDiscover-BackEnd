@@ -73,6 +73,38 @@ function festivals($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        case 'create_festival':
+            $festival = json_decode(file_get_contents("php://input"), true);
+            $sql_id_role = $sql_user = 'SELECT idRole FROM fest_users WHERE idProfile = ' . $festival['idProfile'];
+            $result = $conn->query($sql_id_role);
+            $resultArray = array();
+            foreach ($result as $results) {
+                $resultArray[] = $results;
+            }
+            $idRole = $resultArray[0]['idRole'];
+
+            if($idRole == '3' || $idRole == '1'){
+                $sql_create = "
+                INSERT INTO fest_festivals (name, description, country, location, initDate, endDate, linkTickets, price, idProfile)
+                    VALUES ('". $festival['name'] ."', '". $festival['description'] ."', '". $festival['country'] ."', '". $festival['location'] ."', 
+                    '". $festival['initDate'] ."', '". $festival['endDate'] ."', '". $festival['linkTickets'] ."', ". $festival['price'] .", ". $festival['idProfile'] .")
+                ";
+
+                $result = $conn->query($sql_create);
+                if($result == true){
+                    $data['message'] = 'El festival se ha creado correctamente.';
+                    $data['results'] = $result;
+                    $data['count'] = count($result);
+                }else{
+                    $data['message'] = 'Error. El festival no se ha creado.';
+                }
+            }else{
+                $data['message'] = 'No tiene permisos para crear un festival.';
+                $data['results'] = 0;
+                $data['count'] = 0;
+            }
+
+            break;
         default:
             break;
     }

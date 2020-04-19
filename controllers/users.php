@@ -63,8 +63,8 @@ function users($task, $conn){
 
                 $pass_hash = password_hash($user['password'], PASSWORD_DEFAULT);
                 $sql_user = "
-                    INSERT INTO fest_users (name, email, password, idProfile)
-                    VALUES ('" . $user['name'] . "', '" . $user['email'] . "', '" . $pass_hash . "', '" . $selectProfile['results'][0]['id'] . "')
+                    INSERT INTO fest_users (name, email, password, idProfile, idRole)
+                    VALUES ('" . $user['name'] . "', '" . $user['email'] . "', '" . $pass_hash . "', '" . $selectProfile['results'][0]['id'] . "', '". $user['idRole'] ."')
                 ";
 
                 $result = $conn->query($sql_user);

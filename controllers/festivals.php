@@ -83,7 +83,7 @@ function festivals($task, $conn){
             }
             $idRole = $resultArray[0]['idRole'];
 
-            if($idRole == '3' || $idRole == '1'){
+            if($idRole == '3' || $idRole == '1') {
                 $sql_create = "
                 INSERT INTO fest_festivals (name, description, country, location, initDate, endDate, linkTickets, price, idProfile)
                     VALUES ('". $festival['name'] ."', '". $festival['description'] ."', '". $festival['country'] ."', '". $festival['location'] ."', 
@@ -92,7 +92,27 @@ function festivals($task, $conn){
 
                 $result = $conn->query($sql_create);
                 if($result == true){
-                    $data['message'] = 'El festival se ha creado correctamente.';
+                    $data['message']['festival'] = 'El festival se ha creado correctamente.';
+
+                    $sql_festival = 'SELECT * FROM fest_festivals WHERE idProfile = ' . $festival['idProfile'];
+                    $result_festival = $conn->query($sql_festival);
+                    $resultFestival = array();
+                    foreach ($result_festival as $results) {
+                        $resultFestival = $results;
+                    }
+
+                    foreach($festival['musicGenders']as $gender) {
+                        $sql_create_festival_music_gender = "
+                            INSERT INTO fest_festival_music_gender (idFestival, idMusicGender)
+                            VALUES ('". $resultFestival['id'] ."', '". $gender ."')
+                        ";
+                        $result_gender = $conn->query($sql_create_festival_music_gender);
+                        if($result_gender == true){
+                            $data['message']['music_genders'] = 'Los géneros musicales se han creado correctamente.';
+                        }else{
+                            $data['message']['music_genders'] = 'Los géneros musicales no se han creado.';
+                        }
+                    }
                     $data['results'] = $result;
                     $data['count'] = count($result);
                 }else{

@@ -169,6 +169,16 @@ function users($task, $conn){
                         }
                     }
 
+                    if ($resultArray['idRole'] === '2') {
+                        $sql_delete_festival = "DELETE FROM fest_profile_music_gender WHERE idProfile = " . $resultArray['idProfile'];
+                        $result = $conn->query($sql_delete_festival);
+                        if ($result == true) {
+                            $data['message']['music_gender'] = 'Los géneros musicales del perfil se han eliminado correctamente.';
+                        } else {
+                            $data['message']['music_gender'] = 'Error. Los géneros musicales del perfil no se han eliminado.';
+                        }
+                    }
+
                     $sql_delete_profile = "DELETE FROM fest_profiles WHERE id = " . $resultArray['idProfile'];
                     $result = $conn->query($sql_delete_profile);
                     if ($result == true) {

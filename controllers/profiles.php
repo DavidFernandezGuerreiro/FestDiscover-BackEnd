@@ -125,6 +125,35 @@ function profiles($task, $conn){
             $data['results'] = $result;
             $data['count'] = count($result);
             break;
+        case 'add_favorite_festival':
+            $favorite = json_decode(file_get_contents("php://input"), true);
+
+            $sql_favorite = "
+                INSERT INTO fest_favorite_festivals (idProfile, idFestival)
+                VALUES ('" . $favorite['idProfile'] . "', '" . $favorite['idFestival'] . "')    
+            ";
+            $result = $conn->query($sql_favorite);
+            if ($result == true) {
+                $data['message'] = 'El festival se ha añadido a favoritos.';
+            } else {
+                $data['message'] = 'Error. El festival no se ha podido añadir.';
+            }
+            $data['results'] = $result;
+            $data['count'] = count($result);
+            break;
+        case 'delete_favorite_festival':
+            $favorite = json_decode(file_get_contents("php://input"), true);
+
+            $sql_delete = "DELETE FROM fest_favorite_festivals WHERE idProfile = " . $favorite['idProfile'] . " AND idFestival = " . $favorite['idFestival'];
+            $result = $conn->query($sql_delete);
+            if ($result == true) {
+                $data['message'] = 'El festival se ha eliminado de favoritos.';
+            } else {
+                $data['message'] = 'Error. El festival no se ha podido eliminar.';
+            }
+            $data['results'] = $result;
+            $data['count'] = count($result);
+            break;
         default:
             break;
     }

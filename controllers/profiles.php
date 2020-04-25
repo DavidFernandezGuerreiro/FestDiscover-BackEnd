@@ -99,7 +99,26 @@ function profiles($task, $conn){
 
             $result = $conn->query($sql_update);
             if($result == true){
-                $data['message'] = 'El perfil se ha actualizado correctamente.';
+                $data['message']['profile'] = 'El perfil se ha actualizado correctamente.';
+
+                if(array_key_exists('musicGenders', $profile)) {
+                    $sql_delete_festival = "DELETE FROM fest_profile_music_gender WHERE idProfile = " . $profile['id'];
+                    $result = $conn->query($sql_delete_festival);
+
+                    foreach ($profile['musicGenders'] as $gender) {
+                        $sql_create_profile_music_gender = "
+                            INSERT INTO fest_profile_music_gender (idProfile, idMusicGender)
+                            VALUES ('" . $profile['id'] . "', '" . $gender . "')
+                        ";
+                        $result_gender_profile = $conn->query($sql_create_profile_music_gender);
+                        if ($result_gender_profile == true) {
+                            $data['message']['music_genders'] = 'Los géneros musicales se han actualizado correctamente.';
+                        } else {
+                            $data['message']['music_genders'] = 'Error. Los géneros musicales no se han actualizado.';
+                        }
+                    }
+                }
+
             }else{
                 $data['message'] = 'Error. El perfil no se ha actualizado.';
             }

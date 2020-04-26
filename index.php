@@ -1,14 +1,10 @@
 <?php
 
-//require_once('include/DbConnect.php');
-/*$query = 'SELECT * FROM fest_festivals';
-$result = getResponse($query);
-print_r($result);*/
-
 require_once('controllers/festivals.php');
 require_once('controllers/users.php');
 require_once('controllers/profiles.php');
 require_once('controllers/musicGenders.php');
+require_once('controllers/images.php');
 require_once('include/DbConnect.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -31,6 +27,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             break;
         case 'musicGenders':
             $result = musicGenders($task, connect());
+            print_r(json_encode($result));
+            break;
+        case 'images':
+            $result = images($task, connect());
             print_r(json_encode($result));
             break;
         default:
@@ -59,6 +59,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $result = musicGenders($task, connect());
             print_r(json_encode($result));
             break;
+        case 'images':
+            $result = images($task, connect());
+            print_r(json_encode($result));
+            break;
         default:
             break;
     }
@@ -85,10 +89,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $result = musicGenders($task, connect());
             print_r(json_encode($result));
             break;
+        case 'images':
+            $result = images($task, connect());
+            print_r(json_encode($result));
+            break;
         default:
             break;
     }
 
 }else{
-    http_response_code(405); // método no permitido (AÑADIRLE EL PUT, DELETE, ETC
+    http_response_code(405); // método no permitido
 }

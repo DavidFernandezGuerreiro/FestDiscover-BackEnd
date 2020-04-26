@@ -1,10 +1,8 @@
 <?php
 
+// The Config.php define the constants with the database credentials
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'festdiscover');
 define('_DB_PREFIX_','fest_');
-
-//referencia generado con MD5(uniqid(&lt;some_string&gt;, true))
-define('API_KEY','3d524a53c110e4c22463b10ed32cef9d');

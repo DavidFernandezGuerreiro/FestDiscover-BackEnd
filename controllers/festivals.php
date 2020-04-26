@@ -10,6 +10,7 @@ function festivals($task, $conn){
     );
 
     switch ($task) {
+        // This endpoint collect all the festivals
         case 'get_all_festivals':
             $sql_all_festivals = 'SELECT * FROM fest_festivals';
 
@@ -22,6 +23,7 @@ function festivals($task, $conn){
             $data['results'] = $resultArray;
             $data['count'] = count($resultArray);
             break;
+        // This endpoint collect one festival by idFestival
         case 'get_festival':
             if(isset($_GET['id_festival'])) {
                 $id_festival = $_GET['id_festival'];
@@ -43,6 +45,7 @@ function festivals($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        // This endpoint collects the festivals filtering by country, musical gender, min and max price
         case 'get_festivals_by_filter':
             $filters = json_decode(file_get_contents("php://input"), true);
             $country = isset($filters['country']) ? $filters['country'] : '';
@@ -73,6 +76,7 @@ function festivals($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        // This endpoint create a festival
         case 'create_festival':
             $festival = json_decode(file_get_contents("php://input"), true);
             $sql_id_role = $sql_user = 'SELECT idRole FROM fest_users WHERE idProfile = ' . $festival['idProfile'];

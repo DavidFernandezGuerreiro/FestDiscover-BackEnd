@@ -10,6 +10,7 @@ function profiles($task, $conn){
     );
 
     switch ($task) {
+        // This endpoint collect all the profiles
         case 'get_all_profiles':
             $sql_all_profiles = 'SELECT * FROM fest_profiles';
 
@@ -22,6 +23,7 @@ function profiles($task, $conn){
             $data['results'] = $resultArray;
             $data['count'] = count($resultArray);
             break;
+        // This endpoint collect one profile by idProfile
         case 'get_profile':
             if(isset($_GET['id_profile'])) {
                 $id_profile = $_GET['id_profile'];
@@ -42,6 +44,7 @@ function profiles($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        // This endpoint collect one profile by unique name
         case 'get_profile_name':
             $profile = json_decode(file_get_contents("php://input"), true);
 
@@ -56,6 +59,7 @@ function profiles($task, $conn){
             $data['results'] = $resultArray;
             $data['count'] = count($resultArray);
             break;
+        // This endpoint create a profile
         case 'create_profile':
             $profile = json_decode(file_get_contents("php://input"), true);
 
@@ -73,6 +77,7 @@ function profiles($task, $conn){
             $data['results'] = $result;
             $data['count'] = count($result);
             break;
+        // This endpoint allows you to update a profile
         case 'update_profile':
             $profile = json_decode(file_get_contents("php://input"), true);
 
@@ -125,6 +130,7 @@ function profiles($task, $conn){
             $data['results'] = $result;
             $data['count'] = count($result);
             break;
+        // This endpoint adds a festival to favorites
         case 'add_favorite_festival':
             $favorite = json_decode(file_get_contents("php://input"), true);
 
@@ -141,6 +147,7 @@ function profiles($task, $conn){
             $data['results'] = $result;
             $data['count'] = count($result);
             break;
+        // This endpoint eliminates a favorite festival
         case 'delete_favorite_festival':
             $favorite = json_decode(file_get_contents("php://input"), true);
 

@@ -7,6 +7,7 @@ require_once('controllers/musicGenders.php');
 require_once('controllers/images.php');
 require_once('include/DbConnect.php');
 
+// The index.php acts as a "bridge" by redirecting requests to their respective endpoints
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     //    http_response_code(200);
     $path = $_GET['url'];

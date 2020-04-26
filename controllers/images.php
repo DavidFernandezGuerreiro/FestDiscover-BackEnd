@@ -12,6 +12,7 @@ function images($task, $conn){
     $dir_subida = 'imagesUpload';
 
     switch ($task) {
+        // This endpoint allows you to upload images
         case 'upload_images':
             $profile = $_POST['idProfile'];
             $mydirectory = $dir_subida.'/profile-'.$profile;

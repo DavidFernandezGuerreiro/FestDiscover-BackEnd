@@ -11,6 +11,7 @@ function users($task, $conn){
     );
 
     switch ($task) {
+        // This endpoint collect all the users
         case 'get_all_users':
             $sql_all_users = 'SELECT * FROM fest_users';
 
@@ -23,6 +24,7 @@ function users($task, $conn){
             $data['results'] = $resultArray;
             $data['count'] = count($resultArray);
             break;
+        // This endpoint collect one user by idUser
         case 'get_user':
             if (isset($_GET['id_user'])) {
                 $id_user = $_GET['id_user'];
@@ -43,6 +45,7 @@ function users($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        // This endpoint create a user
         case 'create_user':
             $user = json_decode(file_get_contents("php://input"), true);
 
@@ -93,6 +96,7 @@ function users($task, $conn){
                 $data['error'] = 'Error. Ya existe un perfil con ese nombre de usuario.';
             }
             break;
+        // This endpoint allows a user to login
         case 'user_login':
             $credentials = json_decode(file_get_contents("php://input"), true);
 
@@ -113,6 +117,7 @@ function users($task, $conn){
                 }
             }
             break;
+        // This endpoint allows you to update a user
         case 'update_user':
             $user = json_decode(file_get_contents("php://input"), true);
 
@@ -133,6 +138,9 @@ function users($task, $conn){
             $data['results'] = $result;
             $data['count'] = count($result);
             break;
+        // This endpoint allows you to delete an entire user.
+        // - If it is a user with the role of promoter, it deletes the profile and the festivals created.
+        // - If you are a user with the role user, delete the profile, musical tastes and favorite festivals.
         case 'delete_user':
             $user = json_decode(file_get_contents("php://input"), true);
 

@@ -10,6 +10,7 @@ function musicGenders($task, $conn){
     );
 
     switch ($task) {
+        // This endpoint collect all the music genders
         case 'get_all_music_genders':
             $sql_all_genders = 'SELECT * FROM fest_music_gender';
 
@@ -22,6 +23,7 @@ function musicGenders($task, $conn){
             $data['results'] = $resultArray;
             $data['count'] = count($resultArray);
             break;
+        // This endpoint collect one music gender by idGender
         case 'get_music_gender':
             if(isset($_GET['id_gender'])) {
                 $id_gender = $_GET['id_gender'];
@@ -42,6 +44,7 @@ function musicGenders($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        // This endpoint collects the festivals with a particular musical gender
         case 'get_festival_by_gender':
             $id_music_gender = json_decode(file_get_contents("php://input"), true);
             $id_music_gender = $id_music_gender['id_gender'];
@@ -61,6 +64,7 @@ function musicGenders($task, $conn){
                 $data['count'] = 0;
             }
             break;
+        // This endpoint collects the musical genders of a festival
         case 'get_gender_by_festival':
             $id_festival = $_GET['id_festival'];
             $sql_festival = "

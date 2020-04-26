@@ -9,7 +9,7 @@
 ## Endpoints
 
 ### Festivals
-___
+
 #### GetAllFestivals
 - This endpoint collect all the festivals
 
@@ -56,7 +56,7 @@ http://localhost/FestDiscover-BackEnd/festivals?task=create_festival
 
 ##
 ### Users
-___
+
 #### GetAllUsers
 - This endpoint collect all the users
 
@@ -121,7 +121,7 @@ http://localhost/FestDiscover-BackEnd/users?task=delete_user
 
 ##
 ### Profiles
-___
+
 #### GetAllProfiles
 - This endpoint collect all the profiles
 
@@ -176,7 +176,7 @@ http://localhost/FestDiscover-BackEnd/profiles?task=delete_favorite_festival
 
 ##
 ### MusicGenders
-___
+
 #### GetAllMusicGenders
 - This endpoint collect all the music genders
 
@@ -210,7 +210,7 @@ http://localhost/FestDiscover-BackEnd/musicGenders?task=get_gender_by_festival&i
 
 ##
 ### Images
-___
+
 #### UploadImages
 - This endpoint allows you to upload images
 

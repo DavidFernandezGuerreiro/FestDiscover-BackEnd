@@ -28,7 +28,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/festivals?task=get_festivals_by_filter
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "id_gender": 2,
         "country": "Portugal",
@@ -41,6 +41,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/festivals?task=create_festival
 
+##### Required parameters (raw)
     {
         "idProfile": 92,
         "name": "Nombre Festival",
@@ -75,7 +76,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/users?task=create_user
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "name": "promotor",
         "email": "promotor@daw.com",
@@ -89,7 +90,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/users?task=user_login
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "nameProfile": "profile name",
         "password": "abc123."
@@ -100,7 +101,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/users?task=update_user
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "idUserUpdate": 97,
         "name": "Name Update",
@@ -114,7 +115,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/users?task=delete_user
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "id": 91
     }
@@ -140,7 +141,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/profiles?task=update_profile
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "id": 97,
         "name": "Pedro",
@@ -157,7 +158,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/profiles?task=add_favorite_festival
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "idProfile": 97,
         "idFestival": 1
@@ -168,7 +169,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/profiles?task=delete_favorite_festival
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "idProfile": 97,
         "idFestival": 1
@@ -195,7 +196,7 @@ ___
 
 http://localhost/FestDiscover-BackEnd/musicGenders?task=get_festival_by_gender
 
-##### Required parameters
+##### Required parameters (raw)
     {
         "id_gender": 1
     }

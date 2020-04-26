@@ -170,12 +170,19 @@ function users($task, $conn){
                     }
 
                     if ($resultArray['idRole'] === '2') {
-                        $sql_delete_festival = "DELETE FROM fest_profile_music_gender WHERE idProfile = " . $resultArray['idProfile'];
-                        $result = $conn->query($sql_delete_festival);
-                        if ($result == true) {
+                        $sql_delete_gender = "DELETE FROM fest_profile_music_gender WHERE idProfile = " . $resultArray['idProfile'];
+                        $result_gender = $conn->query($sql_delete_gender);
+                        if ($result_gender == true) {
                             $data['message']['music_gender'] = 'Los géneros musicales del perfil se han eliminado correctamente.';
                         } else {
                             $data['message']['music_gender'] = 'Error. Los géneros musicales del perfil no se han eliminado.';
+                        }
+                        $sql_delete_favorite = "DELETE FROM fest_favorite_festivals WHERE idProfile = " . $resultArray['idProfile'];
+                        $result_favorite = $conn->query($sql_delete_favorite);
+                        if ($result_favorite == true) {
+                            $data['message']['favorite'] = 'El festival se ha eliminado de favoritos.';
+                        } else {
+                            $data['message']['favorite'] = 'Error. El festival no se ha podido eliminar.';
                         }
                     }
 
